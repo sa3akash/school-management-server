@@ -1,5 +1,5 @@
 import express from 'express';
-import { SubjectController } from '@admin/controllers/subject.controller';
+import { CarouselController } from '@admin/controllers/carousel.controller';
 
 class CarouselRoute {
   private readonly router: express.Router;
@@ -8,7 +8,11 @@ class CarouselRoute {
   }
 
   public routes(): express.Router {
-    this.router.post('/create', SubjectController.prototype.addSubject);
+    this.router.post('/create', CarouselController.prototype.addCarousel);
+    this.router.put('/update/:id', CarouselController.prototype.updateCarousel);
+    this.router.delete('/delete/:id', CarouselController.prototype.deleteCarousel);
+    this.router.get('/getSingle/:id', CarouselController.prototype.getSingle);
+    this.router.get('/get/all', CarouselController.prototype.getAll);
 
     return this.router;
   }

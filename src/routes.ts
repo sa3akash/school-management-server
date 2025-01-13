@@ -4,6 +4,7 @@ import { adminRoute } from '@admin/routes/auth.route';
 import { teacherRoute } from '@teacher/routes/teacher.route';
 import { classRoute } from '@admin/routes/class.route';
 import { subjectRoute } from '@admin/routes/subject.route';
+import { carouselRoute } from '@admin/routes/carousel.route';
 
 export default (app: Application) => {
   const routes = () => {
@@ -12,6 +13,7 @@ export default (app: Application) => {
     app.use('/api/v1/teacher', teacherRoute.routes());
     app.use('/api/v1/class', classRoute.routes());
     app.use('/api/v1/subject', subjectRoute.routes());
+    app.use('/api/v1/carousel', carouselRoute.routes());
   };
 
   routes();
