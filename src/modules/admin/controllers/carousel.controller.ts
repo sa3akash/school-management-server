@@ -1,31 +1,27 @@
 import { auth } from '@middleware/auth';
 import { Request, Response } from 'express';
 import { joiValidation } from '@middleware/joiValidation';
-import { subjectModel } from '@admin/models/subject.model';
 import { ServerError } from 'error-express';
-import {SubjectSchema} from "@admin/schemas/subject.schema";
+import { CarouselSchema } from '@admin/schemas/carousel.schema';
+import { CarouselModel } from '@admin/models/carousel.model';
 
 export class CarouselController {
-  @auth('admin')
-  @joiValidation(SubjectSchema)
+  @auth('admin','moderator')
+  @joiValidation(CarouselSchema)
   public async addCarousel(req: Request, res: Response) {
-    const { subjectName, classId } = req.body;
 
-    const alreadySubject = await subjectModel.findOne({
-      subjectName: subjectName
+    const alreadyCarousel = await CarouselModel.findOne({
+      title: req.body.title
     });
 
-    if (alreadySubject) {
+    if (alreadyCarousel) {
       throw new ServerError('Subject already exists', 400);
     }
 
-    const createNew = await subjectModel.create({
-      subjectName,
-      classId
-    });
+    const createNew = await CarouselModel.create(req.body);
 
     res.status(201).json({
-      message: 'Subject created.',
+      message: 'Carousel created.',
       data: createNew
     });
   }

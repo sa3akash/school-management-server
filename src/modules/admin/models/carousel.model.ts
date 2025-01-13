@@ -1,17 +1,20 @@
 import mongoose from 'mongoose';
-import { ISubjectDocument } from '@admin/interfaces/auth.interface';
+import { ICarouselDocument } from '@admin/interfaces/carousel.interface';
 
-const SubjectSchema = new mongoose.Schema<ISubjectDocument>(
+const CarouselSchema = new mongoose.Schema<ICarouselDocument>(
   {
-    subjectName: {
+    title: {
       type: String,
-      required: true,
-      unique: true
-    },
-    classId: {
-      type: mongoose.Types.ObjectId,
-      ref: 'ClassName',
       required: true
+    },
+    subTitle: {
+      type: String
+    },
+    description: {
+      type: String
+    },
+    imageUrl: {
+      type: String
     }
   },
   {
@@ -19,4 +22,4 @@ const SubjectSchema = new mongoose.Schema<ISubjectDocument>(
   }
 );
 
-export const subjectModel = mongoose.model('Subject', SubjectSchema, 'Subject');
+export const CarouselModel = mongoose.model('Carousel', CarouselSchema, 'Carousel');
