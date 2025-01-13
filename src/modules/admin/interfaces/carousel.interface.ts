@@ -7,3 +7,12 @@ export interface ICarouselDocument {
   description: string;
   imageUrl: string;
 }
+
+export interface IAdmissionDocument {
+  _id: string;
+  studentName: string;
+  email: string;
+  phoneNumber: string;
+  age: number
+  comment: string;
+}

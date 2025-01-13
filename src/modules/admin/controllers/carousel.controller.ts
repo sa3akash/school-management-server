@@ -47,8 +47,8 @@ export class CarouselController {
       { new: true }
     );
 
-    res.status(201).json({
-      message: 'update created.',
+    res.status(200).json({
+      message: 'update carousel.',
       data: createNew
     });
   }
@@ -61,16 +61,10 @@ export class CarouselController {
       throw new ServerError('Id required', 400);
     }
 
-    const alreadyCarousel = await CarouselModel.findById(id);
-
-    if (!alreadyCarousel) {
-      throw new ServerError('Carousel does not exists', 404);
-    }
-
     await CarouselModel.findByIdAndDelete(id);
 
-    res.status(201).json({
-      message: 'deleted created.'
+    res.status(200).json({
+      message: 'deleted carousel.'
     });
   }
 
@@ -84,20 +78,19 @@ export class CarouselController {
 
     const alreadyCarousel = await CarouselModel.findById(id);
 
-    res.status(201).json({
-      message: 'deleted created.',
-      data:alreadyCarousel
+    res.status(200).json({
+      message: 'deleted carousel.',
+      data: alreadyCarousel
     });
   }
 
   @auth('admin', 'moderator')
   public async getAll(req: Request, res: Response) {
-
     const alreadyCarousel = await CarouselModel.find();
 
-    res.status(201).json({
-      message: 'deleted created.',
-      data:alreadyCarousel
+    res.status(200).json({
+      message: 'deleted carousel.',
+      data: alreadyCarousel
     });
   }
 }
