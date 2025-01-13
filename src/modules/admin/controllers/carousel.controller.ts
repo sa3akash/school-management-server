@@ -6,16 +6,15 @@ import { CarouselSchema } from '@admin/schemas/carousel.schema';
 import { CarouselModel } from '@admin/models/carousel.model';
 
 export class CarouselController {
-  @auth('admin','moderator')
+  @auth('admin', 'moderator')
   @joiValidation(CarouselSchema)
   public async addCarousel(req: Request, res: Response) {
-
     const alreadyCarousel = await CarouselModel.findOne({
       title: req.body.title
     });
 
     if (alreadyCarousel) {
-      throw new ServerError('Subject already exists', 400);
+      throw new ServerError('Carousel already exists', 400);
     }
 
     const createNew = await CarouselModel.create(req.body);
@@ -23,6 +22,82 @@ export class CarouselController {
     res.status(201).json({
       message: 'Carousel created.',
       data: createNew
+    });
+  }
+
+  @auth('admin', 'moderator')
+  @joiValidation(CarouselSchema)
+  public async updateCarousel(req: Request, res: Response) {
+    const id = req.params.id;
+    if (!id) {
+      throw new ServerError('Id required', 400);
+    }
+
+    const alreadyCarousel = await CarouselModel.findById(id);
+
+    if (!alreadyCarousel) {
+      throw new ServerError('Carousel does not exists', 404);
+    }
+
+    const createNew = await CarouselModel.findByIdAndUpdate(
+      id,
+      {
+        $set: req.body
+      },
+      { new: true }
+    );
+
+    res.status(201).json({
+      message: 'update created.',
+      data: createNew
+    });
+  }
+
+  @auth('admin', 'moderator')
+  public async deleteCarousel(req: Request, res: Response) {
+    const id = req.params.id;
+
+    if (!id) {
+      throw new ServerError('Id required', 400);
+    }
+
+    const alreadyCarousel = await CarouselModel.findById(id);
+
+    if (!alreadyCarousel) {
+      throw new ServerError('Carousel does not exists', 404);
+    }
+
+    await CarouselModel.findByIdAndDelete(id);
+
+    res.status(201).json({
+      message: 'deleted created.'
+    });
+  }
+
+  @auth('admin', 'moderator')
+  public async getSingle(req: Request, res: Response) {
+    const id = req.params.id;
+
+    if (!id) {
+      throw new ServerError('Id required', 400);
+    }
+
+    const alreadyCarousel = await CarouselModel.findById(id);
+
+    res.status(201).json({
+      message: 'deleted created.',
+      data:alreadyCarousel
+    });
+  }
+
+  @auth('admin', 'moderator')
+  public async getAll(req: Request, res: Response) {
+
+    const alreadyCarousel = await CarouselModel.find();
+
+    res.status(201).json({
+      message: 'deleted created.',
+      data:alreadyCarousel
     });
   }
 }
