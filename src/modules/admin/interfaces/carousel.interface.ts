@@ -22,3 +22,10 @@ export interface IFAQDocument {
   FAQsPostQuestion: string;
   FAQsPostAnswer: string;
 }
+
+export interface IFeedBackDocument {
+  _id: string;
+  name: string;
+  review: string;
+  rating: number;
+}
