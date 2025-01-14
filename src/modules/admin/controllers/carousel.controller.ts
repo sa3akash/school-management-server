@@ -79,7 +79,7 @@ export class CarouselController {
     const alreadyCarousel = await CarouselModel.findById(id);
 
     res.status(200).json({
-      message: 'deleted carousel.',
+      message: 'get carousel.',
       data: alreadyCarousel
     });
   }
@@ -89,7 +89,7 @@ export class CarouselController {
     const alreadyCarousel = await CarouselModel.find();
 
     res.status(200).json({
-      message: 'deleted carousel.',
+      message: 'get all carousel.',
       data: alreadyCarousel
     });
   }

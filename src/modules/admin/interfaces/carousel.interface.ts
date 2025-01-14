@@ -16,3 +16,9 @@ export interface IAdmissionDocument {
   age: number
   comment: string;
 }
+
+export interface IFAQDocument {
+  _id: string;
+  FAQsPostQuestion: string;
+  FAQsPostAnswer: string;
+}
